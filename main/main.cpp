@@ -1,9 +1,7 @@
 #include "ESP32-HUB75-MatrixPanel-I2S-DMA.h"
+#include "Face.h"
 
-// #include "Face.h"
-// #include <Adafruit_GFX.h>
-
-MatrixPanel_I2S_DMA *dma_display = nullptr;
+//MatrixPanel_I2S_DMA *dma_display = nullptr;
 
 // Leftside HUB75
 #define R1 15
@@ -25,21 +23,27 @@ MatrixPanel_I2S_DMA *dma_display = nullptr;
 #define LAT 12
 // GND
 
-uint16_t myBLUE = dma_display->color565(0, 0, 255);
+//uint16_t myBLUE = dma_display->color565(0, 0, 255);
 
-// Face* face;
+
+Face* face;
 
 extern "C" void app_main() {
   HUB75_I2S_CFG mxconfig(/* width = */ 64, /* height = */ 64, /* chain = */ 1);
   HUB75_I2S_CFG::i2s_pins pins={R1, G1, BL1, R2, G2, BL2, CH_A, CH_B, CH_C, CH_D, CH_E, LAT, OE, CLK};
   mxconfig.gpio = pins;
 
-  dma_display = new MatrixPanel_I2S_DMA(mxconfig);
-  dma_display->begin();
-  dma_display->setBrightness8(90);
-  dma_display->clearScreen();
-  dma_display->fillScreen(myBLUE);
-  dma_display->drawFastHLine(32,32,32,65536);
-  // `println` is only available when the Adafruit GFX library is used.
-  dma_display->println("Hello\n World");
+  face = new Face(mxconfig, 20);
+  //face->dma_display->begin();
+  //face->begin();
+
+  // dma_display = new MatrixPanel_I2S_DMA(mxconfig);
+  // dma_display->begin();
+  // dma_display->setBrightness8(90);
+  // dma_display->clearScreen();
+  // dma_display->fillScreen(myBLUE);
+  // dma_display->drawFastHLine(32,32,32,65536);
+  // // `println` is only available when the Adafruit GFX library is used.
+  //face->dma_display->println("Hello\n World");
+  //face->drawFastHLine(32,32,32,65535);
 }
