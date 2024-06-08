@@ -73,7 +73,7 @@ void Face::Update() {
 void Face::Draw() {
   // Clear the display
 //   u8g2.clearBuffer();
-	dma_display->clearScreen()
+	dma_display->clearScreen();
   // Draw left eye
 	LeftEye.CenterX = CenterX - EyeSize / 2 - EyeInterDistance;
 	LeftEye.CenterY = CenterY;

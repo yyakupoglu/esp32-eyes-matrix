@@ -59,8 +59,7 @@ public:
     void LookBottom();
     void Wait(unsigned long milliseconds);
 
-protected:
-    void Draw(MatrixPanel_I2S_DMA* dma_display);
+    void Draw();
 };
 
 #endif

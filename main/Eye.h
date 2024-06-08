@@ -50,7 +50,7 @@ class Eye {
 
     void ApplyPreset(const EyeConfig preset);
     void TransitionTo(const EyeConfig preset);
-    void Draw();
+    void Draw(MatrixPanel_I2S_DMA *dma_display);
 };
 
 #endif
