@@ -25,8 +25,8 @@
 
 //uint16_t myBLUE = dma_display->color565(0, 0, 255);
 
-#define WIDTH 64
-#define HEIGHT 64
+#define WIDTH 60
+#define HEIGHT 60
 #define CHAIN 1
 #define EYE_SIZE 40
 
@@ -54,19 +54,21 @@ extern "C" void app_main() {
   //face->RandomLook = false;
 
   while(true) {
-    for (int i=Normal; i<EMOTIONS_COUNT; i++){
     static int lastMoveTime;
 
-  // To avoid making eyes too twitchy (and to allow time for previous move animation to end),
-  // only recalculate new position every 5000ms
-  if(millis() - lastMoveTime > 5000) {
+    for (int i=Normal; i<EMOTIONS_COUNT; i++){
     
-      face->Behavior.SetEmotion(eEmotions(i), 1.0);
-    
-    lastMoveTime = millis();
-    ESP_LOGI("MAIN", "Current emotion is: %c", eEmotions(i));
-  }
-    //face->LookFront(); 
+      
+
+    // To avoid making eyes too twitchy (and to allow time for previous move animation to end),
+    // only recalculate new position every 5000ms
+      if(millis() - lastMoveTime > 5000) {
+        face->Behavior.SetEmotion(eEmotions(i), 1.0);
+        lastMoveTime = millis();
+        ESP_LOGI("MAIN", "Current emotion is: %d", i);
+      }
+
+  
     //vTaskDelay(10 / portTICK_PERIOD_MS);
     face->Update();
     }
