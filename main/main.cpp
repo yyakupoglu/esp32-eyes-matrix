@@ -1,7 +1,7 @@
 #include "ESP32-HUB75-MatrixPanel-I2S-DMA.h"
 #include "Face.h"
-
-//MatrixPanel_I2S_DMA *dma_display = nullptr;
+#include "EyePresets.h"
+#include "FaceEmotions.hpp"
 
 // Leftside HUB75
 #define R1 15
@@ -25,25 +25,53 @@
 
 //uint16_t myBLUE = dma_display->color565(0, 0, 255);
 
+#define WIDTH 64
+#define HEIGHT 64
+#define CHAIN 1
+#define EYE_SIZE 40
 
-Face* face;
 
 extern "C" void app_main() {
-  HUB75_I2S_CFG mxconfig(/* width = */ 64, /* height = */ 64, /* chain = */ 1);
+  HUB75_I2S_CFG mxconfig(/* width = */ WIDTH, /* height = */ HEIGHT, /* chain = */ 1);
   HUB75_I2S_CFG::i2s_pins pins={R1, G1, BL1, R2, G2, BL2, CH_A, CH_B, CH_C, CH_D, CH_E, LAT, OE, CLK};
   mxconfig.gpio = pins;
+  mxconfig.double_buff = true;
+  MatrixPanel_I2S_DMA* Buffer = new MatrixPanel_I2S_DMA(mxconfig);
 
-  face = new Face(mxconfig, 20);
-  //face->dma_display->begin();
-  //face->begin();
+  Face* face = new Face(Buffer,WIDTH, HEIGHT, EYE_SIZE);
 
-  // dma_display = new MatrixPanel_I2S_DMA(mxconfig);
-  // dma_display->begin();
-  // dma_display->setBrightness8(90);
-  // dma_display->clearScreen();
-  // dma_display->fillScreen(myBLUE);
-  // dma_display->drawFastHLine(32,32,32,65536);
-  // // `println` is only available when the Adafruit GFX library is used.
-  //face->dma_display->println("Hello\n World");
-  //face->drawFastHLine(32,32,32,65535);
+  
+  face->Expression.GoTo_Normal();
+
+  //face->RandomBehavior = true;
+
+  // Automatically blink
+  //face->RandomBlink = true;
+  // Set blink rate
+  //face->Blink.Timer.SetIntervalMillis(4000);
+
+  // Automatically choose a new random direction to look
+  //face->RandomLook = false;
+
+  while(true) {
+    for (int i=Normal; i<EMOTIONS_COUNT; i++){
+    static int lastMoveTime;
+
+  // To avoid making eyes too twitchy (and to allow time for previous move animation to end),
+  // only recalculate new position every 5000ms
+  if(millis() - lastMoveTime > 5000) {
+    
+      face->Behavior.SetEmotion(eEmotions(i), 1.0);
+    
+    lastMoveTime = millis();
+    ESP_LOGI("MAIN", "Current emotion is: %c", eEmotions(i));
+  }
+    //face->LookFront(); 
+    //vTaskDelay(10 / portTICK_PERIOD_MS);
+    face->Update();
+    }
+    }
+
+
 }
+
