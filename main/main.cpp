@@ -23,13 +23,11 @@
 #define LAT 12
 // GND
 
-//uint16_t myBLUE = dma_display->color565(0, 0, 255);
 
-#define WIDTH 60
-#define HEIGHT 60
+#define WIDTH 64
+#define HEIGHT 64
 #define CHAIN 1
-#define EYE_SIZE 40
-
+#define EYE_SIZE 36
 
 extern "C" void app_main() {
   HUB75_I2S_CFG mxconfig(/* width = */ WIDTH, /* height = */ HEIGHT, /* chain = */ 1);
@@ -40,39 +38,47 @@ extern "C" void app_main() {
 
   Face* face = new Face(Buffer,WIDTH, HEIGHT, EYE_SIZE);
 
-  
-  face->Expression.GoTo_Normal();
-
-  //face->RandomBehavior = true;
-
+  face->Expression.GoTo_Skeptic();
+   // Automatically choose a new random direction to look
   // Automatically blink
-  //face->RandomBlink = true;
+  face->RandomBlink = true;
   // Set blink rate
-  //face->Blink.Timer.SetIntervalMillis(4000);
-
-  // Automatically choose a new random direction to look
-  //face->RandomLook = false;
-
-  while(true) {
-    static int lastMoveTime;
-
-    for (int i=Normal; i<EMOTIONS_COUNT; i++){
+  face->Blink.Timer.SetIntervalMillis(4000);
+  face->RandomLook = true;
+  while (true) 
+  { 
+    // If not vtaskdelay 
+    vTaskDelay(10 / portTICK_PERIOD_MS); 
+    face->Update();
+  }
+ 
+  
+  // unsigned long mil;
+  // static int lastMoveTime;
     
       
-
-    // To avoid making eyes too twitchy (and to allow time for previous move animation to end),
-    // only recalculate new position every 5000ms
-      if(millis() - lastMoveTime > 5000) {
-        face->Behavior.SetEmotion(eEmotions(i), 1.0);
-        lastMoveTime = millis();
-        ESP_LOGI("MAIN", "Current emotion is: %d", i);
-      }
-
-  
-    //vTaskDelay(10 / portTICK_PERIOD_MS);
-    face->Update();
-    }
-    }
+  //   for (int i=Normal; i<EMOTIONS_COUNT; i++){
+      
+  //     while(true) {
+  //     mil = millis();
+  //   // To avoid making eyes too twitchy (and to allow time for previous move animation to end),
+  //   // only recalculate new position every 5000ms
+  //     if(mil - lastMoveTime > 5000) {
+  //       eEmotions eCurrent = eEmotions(i);
+  //       vTaskDelay(10 / portTICK_PERIOD_MS);
+  //       face->Behavior.SetEmotion(eCurrent, 1.0);
+  //       lastMoveTime = millis();
+  //       ESP_LOGI("MAIN", "Current emotion is: %d", i);
+  //       break;
+  //     }
+  //   vTaskDelay(10 / portTICK_PERIOD_MS);
+  //   ESP_LOGI("MAI", "min %lu, %d", mil, lastMoveTime);
+  //   face->Update();
+  //   }
+  //   // 
+    
+    
+  //   }
 
 
 }

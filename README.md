@@ -1,7 +1,8 @@
-# esp32-eyes
-Emotive animated eyes on an OLED display, as inspired by Anki Cozmo etc.
+# esp32-eyes-matrix
 
-Inspired by the expressive eye animations of the Anki "Cozmo" robot, this Arduino/ESP8266/ESP32 library displays a set of animated eyes on a small 128x64 OLED screen.
+I combined 64x64 matrix (https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA) and https://github.com/playfultechnology/esp32-eyes. Only available fir ESP_IDF 5.1.4
+
+Inspired by the expressive eye animations of the Anki "Cozmo" robot, this Arduino/ESP8266/ESP32 library displays a set of animated eyes on a small 64x64 matrix 
 
 <img src="https://github.com/playfultechnology/esp32-eyes/blob/main/doc/anki-cozmo-faces-3-1024x576.jpg" />
 
@@ -14,11 +15,6 @@ Heavily based on <a href="https://github.com/luisllamasbinaburo/ESP32_Faces/">th
  - Horizontal rather than vertical alignment
  - Mirrored left/right eye animations
  - Automatic or manual blink and look direction
-
-## Hardware Used
- - ESP32 with built-in OLED - https://www.aliexpress.com/item/4000065217965.html (though you can use pretty much any Arduino/ESP8266/ESP8266 and attach a generic I2C OLED)
- - 3x linear potentiometers - https://www.aliexpress.com/item/1005005859787527.html
- - Joystick module - https://www.aliexpress.com/item/32901984938.html
 
 <img src="https://github.com/playfultechnology/esp32-eyes/blob/main/doc/Schematic_ESP32-OLED-Eyes.png" />
 

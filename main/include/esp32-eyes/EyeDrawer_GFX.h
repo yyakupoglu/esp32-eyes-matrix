@@ -80,20 +80,20 @@ class EyeDrawer {
       // Draw slanted edges at top of bottom of eyes 
       // +ve Slope_Top means eyes slope downwards towards middle of face
       if(config->Slope_Top > 0) {
-        EyeDrawer::FillRectangularTriangle(dma_display, TLc_x, TLc_y-config->Radius_Top, TRc_x, TRc_y-config->Radius_Top, black);
-        EyeDrawer::FillRectangularTriangle(dma_display, TRc_x, TRc_y-config->Radius_Top, TLc_x, TLc_y-config->Radius_Top, white);
+        EyeDrawer::FillRectangularTriangle(dma_display, TLc_x, TLc_y-config->Radius_Top, TRc_x, TRc_y-config->Radius_Top, cyan);
+        EyeDrawer::FillRectangularTriangle(dma_display, TRc_x, TRc_y-config->Radius_Top, TLc_x, TLc_y-config->Radius_Top, black);
       } 
       else if(config->Slope_Top < 0) {
-        EyeDrawer::FillRectangularTriangle(dma_display, TRc_x, TRc_y-config->Radius_Top, TLc_x, TLc_y-config->Radius_Top, black);
-        EyeDrawer::FillRectangularTriangle(dma_display, TLc_x, TLc_y-config->Radius_Top, TRc_x, TRc_y-config->Radius_Top, white);
+        EyeDrawer::FillRectangularTriangle(dma_display, TRc_x, TRc_y-config->Radius_Top, TLc_x, TLc_y-config->Radius_Top, cyan);
+        EyeDrawer::FillRectangularTriangle(dma_display, TLc_x, TLc_y-config->Radius_Top, TRc_x, TRc_y-config->Radius_Top, black);
       }
       // Draw slanted edges at bottom of eyes
       if(config->Slope_Bottom > 0) {
-        EyeDrawer::FillRectangularTriangle(dma_display, BRc_x+config->Radius_Bottom, BRc_y+config->Radius_Bottom, BLc_x-config->Radius_Bottom, BLc_y+config->Radius_Bottom, black);
+        EyeDrawer::FillRectangularTriangle(dma_display, BRc_x+config->Radius_Bottom, BRc_y+config->Radius_Bottom, BLc_x-config->Radius_Bottom, BLc_y+config->Radius_Bottom, yellow);
         EyeDrawer::FillRectangularTriangle(dma_display, BLc_x-config->Radius_Bottom, BLc_y+config->Radius_Bottom, BRc_x+config->Radius_Bottom, BRc_y+config->Radius_Bottom, white);
       }
       else if (config->Slope_Bottom < 0) {
-        EyeDrawer::FillRectangularTriangle(dma_display, BLc_x-config->Radius_Bottom, BLc_y+config->Radius_Bottom, BRc_x+config->Radius_Bottom, BRc_y+config->Radius_Bottom, black);
+        EyeDrawer::FillRectangularTriangle(dma_display, BLc_x-config->Radius_Bottom, BLc_y+config->Radius_Bottom, BRc_x+config->Radius_Bottom, BRc_y+config->Radius_Bottom, red);
         EyeDrawer::FillRectangularTriangle(dma_display, BRc_x+config->Radius_Bottom, BRc_y+config->Radius_Bottom, BLc_x-config->Radius_Bottom, BLc_y+config->Radius_Bottom, white);
       }
 
